@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func Read_book_autor(book_name string) string {
+func Read_book_autor(book_name string) []string {
 	db, err := sql.Open("mysql", "web:123@tcp(127.0.0.1:3306)/librarium_base")
 	if err != nil {
 		panic(err.Error())
@@ -28,11 +28,11 @@ func Read_book_autor(book_name string) string {
 		book_autors = append(book_autors, answer)
 	}
 	book_autor := fmt.Sprint(strings.Join(book_autors[:], "; "))
-	log.Print("Автор запрошенной книги: " + book_autor)
+	log.Printf(`Автор запрошенной книги: "%s"`, book_autor)
 
-	return book_autor
+	return book_autors
 }
-func Read_autor_book(book_autor string) string {
+func Read_autor_book(book_autor string) []string {
 	db, err := sql.Open("mysql", "web:123@tcp(127.0.0.1:3306)/librarium_base")
 	if err != nil {
 		panic(err.Error())
@@ -48,6 +48,6 @@ func Read_autor_book(book_autor string) string {
 		book_names = append(book_names, answer)
 	}
 	book_name := fmt.Sprint(strings.Join(book_names[:], "; "))
-	log.Print("Книги запрошенного автора: " + book_name)
-	return book_name
+	log.Printf(`Книги запрошенного автора: "%s"`, book_name)
+	return book_names
 }

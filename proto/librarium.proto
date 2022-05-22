@@ -36,5 +36,5 @@ message DataRequest {
 
 // The response message containing the greetings
 message DataReply {
-  string replyMessage = 1;
+  repeated string replyMessage = 1;
 }
