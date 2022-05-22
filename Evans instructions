@@ -1,1 +1,3 @@
 Запуск и подключение к серверу: ./evans librarium/proto/librarium.proto -p 8080
+
+Then call
