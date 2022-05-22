@@ -1,3 +1,4 @@
 Запуск и подключение к серверу: ./evans librarium/proto/librarium.proto -p 8080
 
-Then call
+Затем "call GetAutor"
+или "call GetBooks"

@@ -31,6 +31,11 @@ type Server struct{}
 
 // GetAutor ...
 func (s *Server) GetAutor(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
-	log.Print("Запрошен автор книги" + req.AskMessage)
+	log.Print("Запрошен автор книги " + req.AskMessage)
 	return &api.DataReply{ReplyMessage: database_access.Read_book_autor(req.AskMessage)}, nil
+}
+
+func (s *Server) GetBooks(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
+	log.Print("Запрошены книги автора " + req.AskMessage)
+	return &api.DataReply{ReplyMessage: database_access.Read_autor_book(req.AskMessage)}, nil
 }

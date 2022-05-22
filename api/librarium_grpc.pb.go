@@ -24,6 +24,8 @@ const _ = grpc.SupportPackageIsVersion7
 type LibrariumClient interface {
 	// Sends a Autor
 	GetAutor(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error)
+	// Sends a Books
+	GetBooks(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error)
 }
 
 type librariumClient struct {
@@ -43,12 +45,23 @@ func (c *librariumClient) GetAutor(ctx context.Context, in *DataRequest, opts ..
 	return out, nil
 }
 
+func (c *librariumClient) GetBooks(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error) {
+	out := new(DataReply)
+	err := c.cc.Invoke(ctx, "/librarium.Librarium/GetBooks", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // LibrariumServer is the server API for Librarium service.
 // All implementations should embed UnimplementedLibrariumServer
 // for forward compatibility
 type LibrariumServer interface {
 	// Sends a Autor
 	GetAutor(context.Context, *DataRequest) (*DataReply, error)
+	// Sends a Books
+	GetBooks(context.Context, *DataRequest) (*DataReply, error)
 }
 
 // UnimplementedLibrariumServer should be embedded to have forward compatible implementations.
@@ -57,6 +70,9 @@ type UnimplementedLibrariumServer struct {
 
 func (UnimplementedLibrariumServer) GetAutor(context.Context, *DataRequest) (*DataReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAutor not implemented")
+}
+func (UnimplementedLibrariumServer) GetBooks(context.Context, *DataRequest) (*DataReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetBooks not implemented")
 }
 
 // UnsafeLibrariumServer may be embedded to opt out of forward compatibility for this service.
@@ -88,6 +104,24 @@ func _Librarium_GetAutor_Handler(srv interface{}, ctx context.Context, dec func(
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Librarium_GetBooks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DataRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(LibrariumServer).GetBooks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/librarium.Librarium/GetBooks",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(LibrariumServer).GetBooks(ctx, req.(*DataRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Librarium_ServiceDesc is the grpc.ServiceDesc for Librarium service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -98,6 +132,10 @@ var Librarium_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAutor",
 			Handler:    _Librarium_GetAutor_Handler,
+		},
+		{
+			MethodName: "GetBooks",
+			Handler:    _Librarium_GetBooks_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

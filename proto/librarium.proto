@@ -26,7 +26,7 @@ service Librarium {
   // Sends a Autor
   rpc GetAutor (DataRequest) returns (DataReply) {}
   // Sends a Books
-  //rpc GetBooks (DataRequest) returns (DataReply) {}
+  rpc GetBooks (DataRequest) returns (DataReply) {}
 }
 
 // The request message containing Autor or a Book name.
