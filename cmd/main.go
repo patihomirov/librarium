@@ -8,7 +8,10 @@ import (
 	"net"
 )
 
+var ServiceOnline bool //Эта переменная нужна для функционального теста всего сервиса для определения что сервис запущен и не надо запускать его повторно
+
 func main() {
+	ServiceOnline = true
 	log.Print("Service librarium is started at port 8080")
 
 	s := grpc.NewServer()
@@ -23,5 +26,4 @@ func main() {
 	if err := s.Serve(l); err != nil {
 		log.Fatal(err)
 	}
-
 }

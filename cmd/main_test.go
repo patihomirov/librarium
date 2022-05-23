@@ -69,13 +69,24 @@ func TestServerGetAuthor(t *testing.T) {
 	}
 }
 
+//Для обоих следующих тестов требуется запуск самого сервиса main.
+//Чтобы исключить одновременный запуск двух сервисов на одном порту, запретим запуск сервиса более одного раза.
+
+func runMainService() {
+	if ServiceOnline == false {
+		go main()
+	}
+}
+
 func TestGRPCGetAuthor(t *testing.T) {
 	//Arange
 	bookName := "Волны гасят ветер"
 	expected := []string{"Стругацкие"}
 	//Act
-	go main()
-	time.Sleep(5 * time.Second)
+
+	//go main()
+	runMainService()
+	time.Sleep(1 * time.Second)
 	result := client.ClientGetAutor(bookName)
 
 	//Assert
@@ -90,8 +101,9 @@ func TestGRPCGetBooks(t *testing.T) {
 	bookAuthor := "Грэм Грин"
 	expected := []string{"Сила и слава"}
 	//Act
-	go main()
-	time.Sleep(5 * time.Second)
+	//go main()
+	runMainService()
+	time.Sleep(1 * time.Second)
 	result := client.ClientGetBooks(bookAuthor)
 
 	//Assert
