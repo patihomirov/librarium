@@ -35,6 +35,7 @@ func (s *Server) GetAuthor(ctx context.Context, req *api.DataRequest) (*api.Data
 	return &api.DataReply{ReplyMessage: database_access.ReadBookAuthor(req.AskMessage)}, nil
 }
 
+// GetBooks ...
 func (s *Server) GetBooks(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
 	log.Printf(`Запрошены книги автора "%s"`, req.AskMessage)
 	return &api.DataReply{ReplyMessage: database_access.ReadAuthorBook(req.AskMessage)}, nil
