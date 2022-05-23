@@ -4,9 +4,11 @@ import (
 	"context"
 	"fmt"
 	"librarium/api"
+	"librarium/client"
 	"librarium/database_access"
 	"librarium/server"
 	"testing"
+	"time"
 )
 
 func TestReadAuthorBook(t *testing.T) {
@@ -65,4 +67,36 @@ func TestServerGetAuthor(t *testing.T) {
 	if fmt.Sprint(result) != fmt.Sprint(expected) {
 		t.Errorf("Incorrest result. Expect %s, got %s", expected, result)
 	}
+}
+
+func TestGRPCGetAuthor(t *testing.T) {
+	//Arange
+	bookName := "Волны гасят ветер"
+	expected := []string{"Стругацкие"}
+	//Act
+	go main()
+	time.Sleep(5 * time.Second)
+	result := client.ClientGetAutor(bookName)
+
+	//Assert
+	if fmt.Sprint(result) != fmt.Sprint(expected) {
+		t.Errorf("Incorrest result. Expect %s, got %s", expected, result)
+	}
+
+}
+
+func TestGRPCGetBooks(t *testing.T) {
+	//Arange
+	bookAuthor := "Грэм Грин"
+	expected := []string{"Сила и слава"}
+	//Act
+	go main()
+	time.Sleep(5 * time.Second)
+	result := client.ClientGetBooks(bookAuthor)
+
+	//Assert
+	if fmt.Sprint(result) != fmt.Sprint(expected) {
+		t.Errorf("Incorrest result. Expect %s, got %s", expected, result)
+	}
+
 }
