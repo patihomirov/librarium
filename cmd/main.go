@@ -9,6 +9,8 @@ import (
 )
 
 func main() {
+	log.Print("Service librarium is started at port 8080")
+
 	s := grpc.NewServer()
 	srv := &server.Server{}
 	api.RegisterLibrariumServer(s, srv)

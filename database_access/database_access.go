@@ -8,7 +8,7 @@ import (
 	"strings"
 )
 
-func Read_book_autor(book_name string) []string {
+func ReadBookAuthor(bookName string) []string {
 	db, err := sql.Open("mysql", "web:123@tcp(127.0.0.1:3306)/librarium_base")
 	if err != nil {
 		panic(err.Error())
@@ -19,20 +19,20 @@ func Read_book_autor(book_name string) []string {
 	//	result, _ := db.Query("SELECT book_autor FROM librarium_base WHERE book_name = ?")
 
 	//book_name = "Сила и слава"
-	rows, _ := db.Query("SELECT book_autor FROM librarium_base WHERE book_name = ?", book_name)
-	var book_autors []string
+	rows, _ := db.Query("SELECT book_autor FROM librarium_base WHERE book_name = ?", bookName)
+	var bookAuthors []string
 	var answer string
 
 	for rows.Next() {
 		rows.Scan(&answer)
-		book_autors = append(book_autors, answer)
+		bookAuthors = append(bookAuthors, answer)
 	}
-	book_autor := fmt.Sprint(strings.Join(book_autors[:], "; "))
-	log.Printf(`Автор запрошенной книги: "%s"`, book_autor)
+	bookAutor := fmt.Sprint(strings.Join(bookAuthors[:], "; "))
+	log.Printf(`Автор запрошенной книги: "%s"`, bookAutor)
 
-	return book_autors
+	return bookAuthors
 }
-func Read_autor_book(book_autor string) []string {
+func ReadAuthorBook(bookAutor string) []string {
 	db, err := sql.Open("mysql", "web:123@tcp(127.0.0.1:3306)/librarium_base")
 	if err != nil {
 		panic(err.Error())
@@ -40,14 +40,14 @@ func Read_autor_book(book_autor string) []string {
 
 	defer db.Close()
 
-	rows, _ := db.Query("SELECT book_name FROM librarium_base WHERE book_autor = ?", book_autor)
-	var book_names []string
+	rows, _ := db.Query("SELECT book_name FROM librarium_base WHERE book_autor = ?", bookAutor)
+	var bookNames []string
 	var answer string
 	for rows.Next() {
 		rows.Scan(&answer)
-		book_names = append(book_names, answer)
+		bookNames = append(bookNames, answer)
 	}
-	book_name := fmt.Sprint(strings.Join(book_names[:], "; "))
-	log.Printf(`Книги запрошенного автора: "%s"`, book_name)
-	return book_names
+	bookName := fmt.Sprint(strings.Join(bookNames[:], "; "))
+	log.Printf(`Книги запрошенного автора: "%s"`, bookName)
+	return bookNames
 }

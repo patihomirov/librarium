@@ -4,3 +4,6 @@ pass: 123
 
 Установка базы данных
 sudo mysql -u root -p librarium_base < ./database_dump/librarium_base.sql
+
+Создание и открытие прав пользователю:
+>mySQL CREATE USER 'web'@'localhost' IDENTIFIED BY '123';

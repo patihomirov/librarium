@@ -23,7 +23,7 @@ const _ = grpc.SupportPackageIsVersion7
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LibrariumClient interface {
 	// Sends a Autor
-	GetAutor(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error)
+	GetAuthor(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error)
 	// Sends a Books
 	GetBooks(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error)
 }
@@ -36,9 +36,9 @@ func NewLibrariumClient(cc grpc.ClientConnInterface) LibrariumClient {
 	return &librariumClient{cc}
 }
 
-func (c *librariumClient) GetAutor(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error) {
+func (c *librariumClient) GetAuthor(ctx context.Context, in *DataRequest, opts ...grpc.CallOption) (*DataReply, error) {
 	out := new(DataReply)
-	err := c.cc.Invoke(ctx, "/librarium.Librarium/GetAutor", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/librarium.Librarium/GetAuthor", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (c *librariumClient) GetBooks(ctx context.Context, in *DataRequest, opts ..
 // for forward compatibility
 type LibrariumServer interface {
 	// Sends a Autor
-	GetAutor(context.Context, *DataRequest) (*DataReply, error)
+	GetAuthor(context.Context, *DataRequest) (*DataReply, error)
 	// Sends a Books
 	GetBooks(context.Context, *DataRequest) (*DataReply, error)
 }
@@ -68,8 +68,8 @@ type LibrariumServer interface {
 type UnimplementedLibrariumServer struct {
 }
 
-func (UnimplementedLibrariumServer) GetAutor(context.Context, *DataRequest) (*DataReply, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetAutor not implemented")
+func (UnimplementedLibrariumServer) GetAuthor(context.Context, *DataRequest) (*DataReply, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAuthor not implemented")
 }
 func (UnimplementedLibrariumServer) GetBooks(context.Context, *DataRequest) (*DataReply, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetBooks not implemented")
@@ -86,20 +86,20 @@ func RegisterLibrariumServer(s grpc.ServiceRegistrar, srv LibrariumServer) {
 	s.RegisterService(&Librarium_ServiceDesc, srv)
 }
 
-func _Librarium_GetAutor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Librarium_GetAuthor_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DataRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(LibrariumServer).GetAutor(ctx, in)
+		return srv.(LibrariumServer).GetAuthor(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/librarium.Librarium/GetAutor",
+		FullMethod: "/librarium.Librarium/GetAuthor",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(LibrariumServer).GetAutor(ctx, req.(*DataRequest))
+		return srv.(LibrariumServer).GetAuthor(ctx, req.(*DataRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -130,8 +130,8 @@ var Librarium_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*LibrariumServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetAutor",
-			Handler:    _Librarium_GetAutor_Handler,
+			MethodName: "GetAuthor",
+			Handler:    _Librarium_GetAuthor_Handler,
 		},
 		{
 			MethodName: "GetBooks",

@@ -16,7 +16,7 @@
  *
  */
 
-// Package main implements a server for Greeter service.
+// Package server implements a server for Greeter service.
 package server
 
 import (
@@ -29,13 +29,13 @@ import (
 //Server ...
 type Server struct{}
 
-// GetAutor ...
-func (s *Server) GetAutor(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
+// GetAuthor ...
+func (s *Server) GetAuthor(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
 	log.Printf(`Запрошен автор книги "%s"`, req.AskMessage)
-	return &api.DataReply{ReplyMessage: database_access.Read_book_autor(req.AskMessage)}, nil
+	return &api.DataReply{ReplyMessage: database_access.ReadBookAuthor(req.AskMessage)}, nil
 }
 
 func (s *Server) GetBooks(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
 	log.Printf(`Запрошены книги автора "%s"`, req.AskMessage)
-	return &api.DataReply{ReplyMessage: database_access.Read_autor_book(req.AskMessage)}, nil
+	return &api.DataReply{ReplyMessage: database_access.ReadAuthorBook(req.AskMessage)}, nil
 }

@@ -24,7 +24,7 @@ package librarium;
 // The librarium service definition.
 service Librarium {
   // Sends a Autor
-  rpc GetAutor (DataRequest) returns (DataReply) {}
+  rpc GetAuthor (DataRequest) returns (DataReply) {}
   // Sends a Books
   rpc GetBooks (DataRequest) returns (DataReply) {}
 }
