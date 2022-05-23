@@ -21,7 +21,7 @@ package server
 
 import (
 	"context"
-	"librarium/api"
+	"librarium/api/proto"
 	"librarium/database_access"
 	"log"
 )
@@ -30,13 +30,13 @@ import (
 type Server struct{}
 
 // GetAuthor ...
-func (s *Server) GetAuthor(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
+func (s *Server) GetAuthor(ctx context.Context, req *proto.DataRequest) (*proto.DataReply, error) {
 	log.Printf(`Запрошен автор книги "%s"`, req.AskMessage)
-	return &api.DataReply{ReplyMessage: database_access.ReadBookAuthor(req.AskMessage)}, nil
+	return &proto.DataReply{ReplyMessage: database_access.ReadBookAuthor(req.AskMessage)}, nil
 }
 
 // GetBooks ...
-func (s *Server) GetBooks(ctx context.Context, req *api.DataRequest) (*api.DataReply, error) {
+func (s *Server) GetBooks(ctx context.Context, req *proto.DataRequest) (*proto.DataReply, error) {
 	log.Printf(`Запрошены книги автора "%s"`, req.AskMessage)
-	return &api.DataReply{ReplyMessage: database_access.ReadAuthorBook(req.AskMessage)}, nil
+	return &proto.DataReply{ReplyMessage: database_access.ReadAuthorBook(req.AskMessage)}, nil
 }

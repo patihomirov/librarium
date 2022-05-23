@@ -4,7 +4,7 @@
 // - protoc             v3.12.4
 // source: proto/librarium.proto
 
-package api
+package proto
 
 import (
 	context "context"

@@ -11,7 +11,7 @@
 - ./cmd/main_test.go - пакет для тестирования сервиса
 - ./server/server.go - пакет с обработчиками запросов от gRPC
 - ./database_access/database_access.go - пакет с инструкциями по взаимодействию с базой данных
-- ./api - файлы конфигурации gRPC сервиса
+- ./api/proto - файлы конфигурации gRPC сервиса
   - librarium.pb.go
   - librarium_grpc.pb.go
 

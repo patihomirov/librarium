@@ -2,7 +2,7 @@ package main
 
 import (
 	"google.golang.org/grpc"
-	"librarium/api"
+	"librarium/api/proto"
 	"librarium/server"
 	"log"
 	"net"
@@ -16,7 +16,7 @@ func main() {
 
 	s := grpc.NewServer()
 	srv := &server.Server{}
-	api.RegisterLibrariumServer(s, srv)
+	proto.RegisterLibrariumServer(s, srv)
 
 	l, err := net.Listen("tcp", ":8080")
 	if err != nil {

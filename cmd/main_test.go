@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"librarium/api"
+	"librarium/api/proto"
 	"librarium/client"
 	"librarium/database_access"
 	"librarium/server"
@@ -38,7 +38,7 @@ func TestReadBookAuthor(t *testing.T) {
 
 func TestServerGetBooks(t *testing.T) {
 	s := server.Server{}
-	var req api.DataRequest
+	var req proto.DataRequest
 	//Arange
 	req.AskMessage = "Грэм Грин"
 	expected := `replyMessage:"Сила и слава"`
@@ -54,7 +54,7 @@ func TestServerGetBooks(t *testing.T) {
 
 func TestServerGetAuthor(t *testing.T) {
 	s := server.Server{}
-	var req api.DataRequest
+	var req proto.DataRequest
 	//Arange
 	req.AskMessage = "Хроники Нарнии"
 	expected := `replyMessage:"Льюис"`
@@ -74,7 +74,7 @@ func TestServerGetAuthor(t *testing.T) {
 func runMainService() {
 	if ServiceOnline == false { //Запускает сервис если он еще не запущен
 		go main()
-		for ServiceOnline == true { //Не возвращаем управление в тест связи с сервисом пока тест не запущен
+		for ServiceOnline == true { //Не возвращаем управление в тест связи с сервисом пока сервис не запущен
 		}
 	}
 }
