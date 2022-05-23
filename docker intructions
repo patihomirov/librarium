@@ -1,0 +1,8 @@
+Создать образ Docker:
+sudo docker build -t librarium .
+
+Запустить образ librarium:
+sudo docker run --network host librarium
+//параметр "--network host" необходим для запуска контейнера в среде localhost
+
+Разварачивание БД должн быть выполнено на машине host или в отдельном контейнере, но с корректным логином и паролем (см. "DB insructions.txt")

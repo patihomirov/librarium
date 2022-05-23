@@ -1,0 +1,6 @@
+*.png
+*.txt
+*.proto
+*instructions
+README.md
+/database_dump/
