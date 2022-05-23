@@ -1,0 +1,6 @@
+Выгрузка базы данных
+sudo mysqldump --extended-insert=FALSE -u root -p librarium_base librarium_base > ./database_dump/librarium_base.sql
+pass: 123
+
+Установка базы данных
+sudo mysql -u root -p librarium_base < ./database_dump/librarium_base.sql
