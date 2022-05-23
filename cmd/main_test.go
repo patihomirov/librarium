@@ -8,7 +8,6 @@ import (
 	"librarium/database_access"
 	"librarium/server"
 	"testing"
-	"time"
 )
 
 func TestReadAuthorBook(t *testing.T) {
@@ -73,8 +72,10 @@ func TestServerGetAuthor(t *testing.T) {
 //Чтобы исключить одновременный запуск двух сервисов на одном порту, запретим запуск сервиса более одного раза.
 
 func runMainService() {
-	if ServiceOnline == false {
+	if ServiceOnline == false { //Запускает сервис если он еще не запущен
 		go main()
+		for ServiceOnline == true { //Не возвращаем управление в тест связи с сервисом пока тест не запущен
+		}
 	}
 }
 
@@ -86,7 +87,6 @@ func TestGRPCGetAuthor(t *testing.T) {
 
 	//go main()
 	runMainService()
-	time.Sleep(1 * time.Second)
 	result := client.ClientGetAutor(bookName)
 
 	//Assert
@@ -103,7 +103,6 @@ func TestGRPCGetBooks(t *testing.T) {
 	//Act
 	//go main()
 	runMainService()
-	time.Sleep(1 * time.Second)
 	result := client.ClientGetBooks(bookAuthor)
 
 	//Assert
